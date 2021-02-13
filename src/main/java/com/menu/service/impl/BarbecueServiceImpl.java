@@ -37,7 +37,14 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
 
     @Override
     public Barbecue update(Long barbecueId, Barbecue updateBarbecue) {
-        return null;
+        Barbecue search = barbecueRepository.findById(barbecueId)
+                .orElseThrow(()->new RuntimeException());
+        search.setBarbecueId(updateBarbecue.getBarbecueId());
+        search.setItemName(updateBarbecue.getItemName());
+        search.setPreparationTime(updateBarbecue.getPreparationTime());
+        search.setDescription(updateBarbecue.getDescription());
+        search.setPrice(updateBarbecue.getPrice());
+        return search;
     }
 
     @Override

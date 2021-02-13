@@ -15,12 +15,22 @@ public class BarbecueController implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> findBarbecueById(Barbecue barbecueId) {
+    public ResponseEntity<?> findBarbecueById(Long barbecueId) {
         return null;
     }
 
     @Override
     public ResponseEntity<?> save(Barbecue barbecue) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> updateBarbecueById(Long barbecueId, Barbecue barbecue) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> deleteBarbecueById(Long barbecueId) {
         return null;
     }
 }
