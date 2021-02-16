@@ -8,4 +8,5 @@ public interface DrinkService<D> {
     D findByName(String name);
     D save(D newDrink);
     D update(Long drinkId ,D updateDrink);
+    void delete(Long drinkId);
 }
