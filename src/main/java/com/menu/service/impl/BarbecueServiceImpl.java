@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BarbecueServiceImpl implements BarbecueService<Barbecue>
@@ -31,8 +32,13 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public Barbecue save(Barbecue newBarbecue) {
-        return barbecueRepository.save(newBarbecue);
+    public Optional<Barbecue> save(Optional<Barbecue> newBarbecue) {
+        if (newBarbecue.isPresent()){
+            barbecueRepository.save(newBarbecue.get());
+            return newBarbecue;
+        }
+        System.out.println("Produto nao cadastrado !");
+        return null;
     }
 
     @Override

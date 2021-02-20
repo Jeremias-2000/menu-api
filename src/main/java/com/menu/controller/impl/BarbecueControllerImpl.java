@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.util.Optional;
+
 import static org.springframework.web.client.HttpClientErrorException.*;
 
 @Slf4j
@@ -37,7 +39,7 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> save(Barbecue barbecue) {
+    public ResponseEntity<?> save(Optional<Barbecue> barbecue) {
         return new ResponseEntity<>(barbecueService.save(barbecue), HttpStatus.CREATED);
     }
 
