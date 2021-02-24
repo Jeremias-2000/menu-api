@@ -1,4 +1,4 @@
-package com.menu.controller;
+package com.menu.controller.impl;
 
 import com.menu.document.Pasta;
 import com.menu.service.impl.PastaServiceImpl;

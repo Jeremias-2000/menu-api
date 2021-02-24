@@ -44,7 +44,7 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
             return newBarbecue;
         }
         System.out.println("Produto nao cadastrado !");
-        return null;
+        throw new RuntimeException();
     }
 
     @Override

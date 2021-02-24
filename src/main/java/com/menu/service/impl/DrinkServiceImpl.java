@@ -20,7 +20,8 @@ public class DrinkServiceImpl implements DrinkService<Drink> {
 
     @Override
     public Drink findById(Long drinkId) {
-        return drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException());
+        return drinkRepository.findById(drinkId).orElseThrow(()
+                -> new RuntimeException());
     }
 
     @Override

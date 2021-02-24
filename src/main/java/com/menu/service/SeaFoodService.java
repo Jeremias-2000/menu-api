@@ -1,12 +1,13 @@
 package com.menu.service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SeaFoodService<S> {
     List<S> findAll();
-    S findById(Long  seafoodId);
+    Optional<S> findById(Long  seafoodId);
     S findByName(String name);
-    S save(S newSeaFood);
+    Optional<S> save(Optional<S> newSeaFood);
     S update(Long seafoodId ,S updateSeaFood);
     void delete(Long SeaFoodId);
 }
