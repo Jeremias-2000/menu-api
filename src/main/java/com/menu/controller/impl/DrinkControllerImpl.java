@@ -46,6 +46,7 @@ public class DrinkControllerImpl implements DrinkRequests {
 
     @Override
     public ResponseEntity<?> deleteDrinkById(Long drinkId) {
+        drinkService.delete(drinkId);
         return ResponseEntity.ok().build();
     }
 }
