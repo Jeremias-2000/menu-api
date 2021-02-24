@@ -13,9 +13,13 @@ public class SeaFoodServiceImpl implements SeaFoodService<SeaFood> {
     @Autowired
     private SeaFoodRepository seaFoodRepository;
 
+    public SeaFoodServiceImpl(SeaFoodRepository seaFoodRepository) {
+        this.seaFoodRepository = seaFoodRepository;
+    }
+
     @Override
     public List<SeaFood> findAll() {
-        return null;
+        return seaFoodRepository.findAll();
     }
 
     @Override
@@ -35,7 +39,7 @@ public class SeaFoodServiceImpl implements SeaFoodService<SeaFood> {
 
     @Override
     public SeaFood save(SeaFood newSeaFood) {
-        return null;
+        return seaFoodRepository.save(newSeaFood);
     }
 
     @Override

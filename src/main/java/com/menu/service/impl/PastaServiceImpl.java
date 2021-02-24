@@ -13,6 +13,10 @@ public class PastaServiceImpl implements PastaService<Pasta> {
     @Autowired
     private PastaRepository pastaRepository;
 
+    public PastaServiceImpl(PastaRepository pastaRepository) {
+        this.pastaRepository = pastaRepository;
+    }
+
     @Override
     public List<Pasta> findAll(){
         return pastaRepository.findAll();
@@ -24,7 +28,7 @@ public class PastaServiceImpl implements PastaService<Pasta> {
 
     @Override
     public Pasta findById(Long pastaId) {
-        return null;
+        return pastaRepository.findById(pastaId).orElseThrow(() -> new RuntimeException());
     }
 
     @Override
@@ -39,7 +43,8 @@ public class PastaServiceImpl implements PastaService<Pasta> {
 
     @Override
     public void deletePasta(Long pastaId) {
-
+      Pasta search =  pastaRepository.findById(pastaId).orElseThrow(() -> new RuntimeException());
+        pastaRepository.delete(search);
     }
 
 

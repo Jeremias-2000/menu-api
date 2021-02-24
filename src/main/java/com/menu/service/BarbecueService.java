@@ -1,12 +1,13 @@
 package com.menu.service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BarbecueService<B> {
     List<B> findAll();
-    B findById(Long  barbecueId);
+    Optional<B> findById(Long  barbecueId);
     B findByName(String name);
-    B save(B newBarbecue);
+    Optional<B> save(Optional<B> newBarbecue);
     B update(Long barbecueId ,B updateBarbecue);
     void delete(Long barbecueId);
 }

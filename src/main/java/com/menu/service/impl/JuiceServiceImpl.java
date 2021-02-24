@@ -13,14 +13,19 @@ public class JuiceServiceImpl implements JuiceService<Juice> {
    @Autowired
    private JuiceRepository juiceRepository;
 
+    public JuiceServiceImpl(JuiceRepository juiceRepository) {
+        this.juiceRepository = juiceRepository;
+    }
+
+
     @Override
     public List<Juice> findAll() {
-        return null;
+        return juiceRepository.findAll();
     }
 
     @Override
     public Juice findById(Long juiceId) {
-        return null;
+        return juiceRepository.findById(juiceId).orElseThrow(()-> new RuntimeException());
     }
 
     @Override
@@ -30,7 +35,7 @@ public class JuiceServiceImpl implements JuiceService<Juice> {
 
     @Override
     public Juice save(Juice newJuice) {
-        return null;
+        return juiceRepository.save(newJuice);
     }
 
     @Override
@@ -39,7 +44,8 @@ public class JuiceServiceImpl implements JuiceService<Juice> {
     }
 
     @Override
-    public void deleteJuice(Long JuiceId) {
-
+    public void deleteJuice(Long juiceId) {
+       Juice juice = juiceRepository.findById(juiceId).orElseThrow(()-> new RuntimeException());
+        juiceRepository.delete(juice);
     }
 }

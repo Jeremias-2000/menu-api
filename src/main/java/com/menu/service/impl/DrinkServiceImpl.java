@@ -15,12 +15,12 @@ public class DrinkServiceImpl implements DrinkService<Drink> {
 
     @Override
     public List<Drink> findAll() {
-        return null;
+        return drinkRepository.findAll();
     }
 
     @Override
     public Drink findById(Long drinkId) {
-        return null;
+        return drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException());
     }
 
     @Override
@@ -30,11 +30,24 @@ public class DrinkServiceImpl implements DrinkService<Drink> {
 
     @Override
     public Drink save(Drink newDrink) {
-        return null;
+        return drinkRepository.save(newDrink);
     }
 
     @Override
     public Drink update(Long drinkId, Drink updateDrink) {
-        return null;
+        Drink search = drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException());
+        search.setDrinkId(updateDrink.getDrinkId());
+        search.setItemName(updateDrink.getItemName());
+        search.setPreparationTime(updateDrink.getPreparationTime());
+        search.setDescription(updateDrink.getDescription());
+        search.setPrice(updateDrink.getPrice());
+        return search;
+    }
+
+    @Override
+    public void delete(Long drinkId) {
+        Drink search = drinkRepository.findById(drinkId).orElseThrow(() -> new RuntimeException());
+        drinkRepository.delete(search);
+
     }
 }
