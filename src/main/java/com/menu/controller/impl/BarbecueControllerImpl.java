@@ -2,6 +2,7 @@ package com.menu.controller.impl;
 
 import com.menu.controller.BarbecueRequests;
 import com.menu.document.Barbecue;
+import com.menu.exception.ProductAlreadyRegisteredException;
 import com.menu.service.impl.BarbecueServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> save(Optional<Barbecue> barbecue) {
+    public ResponseEntity<?> save(Barbecue barbecue) throws ProductAlreadyRegisteredException {
         return new ResponseEntity<>(barbecueService.save(barbecue), HttpStatus.CREATED);
     }
 

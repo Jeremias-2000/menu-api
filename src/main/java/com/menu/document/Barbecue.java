@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Document(collection = "barbecue")
@@ -18,12 +19,14 @@ public class Barbecue implements Serializable {
 
     @Id
     private long barbecueId;
+    @Size(min = 2,max = 200)
     @NotNull(message = "Nome do cardapio nao pode ser nulo")
     private String itemName;
+    
     @NotNull(message = "Tempo de preparacao nao pode ser nulo")
     private String preparationTime;
     @NotNull(message = "Descricao nao pode ser nulo")
     private String description;
-    @NotNull(message = "")
+    @NotNull(message = "preco nao pode ser nulo")
     private double price;
 }

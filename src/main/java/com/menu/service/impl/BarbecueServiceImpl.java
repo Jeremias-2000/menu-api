@@ -1,8 +1,10 @@
 package com.menu.service.impl;
 
 import com.menu.document.Barbecue;
+import com.menu.exception.ProductAlreadyRegisteredException;
 import com.menu.repository.BarbecueRepository;
 import com.menu.service.BarbecueService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,18 +35,20 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public Barbecue findByName(String name) {
-        return null;
+    public Optional<Barbecue> findByName(String name) {
+        return barbecueRepository.findByItemName(name);
     }
 
+
+
     @Override
-    public Optional<Barbecue> save(Optional<Barbecue> newBarbecue) {
-        if (newBarbecue.isPresent()){
-            barbecueRepository.save(newBarbecue.get());
-            return newBarbecue;
+    public Barbecue save(Barbecue newBarbecue) throws ProductAlreadyRegisteredException {
+        if (newBarbecue != null){
+            verifyProductAlreadyRegistered(newBarbecue.getItemName());
+            return barbecueRepository.save(newBarbecue);
         }
-        System.out.println("Produto nao cadastrado !");
-        throw new RuntimeException();
+        return null;
+
     }
 
     @Override
@@ -58,6 +62,14 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
         search.setPrice(updateBarbecue.getPrice());
         System.out.println("Produto atualizado");
         return search;
+    }
+
+    @Override
+    public void verifyProductAlreadyRegistered(String itemName) throws ProductAlreadyRegisteredException {
+        Optional<Barbecue> search = barbecueRepository.findByItemName(itemName);
+        if (search.isPresent()){
+            throw new ProductAlreadyRegisteredException(itemName);
+        }
     }
 
     @Override
