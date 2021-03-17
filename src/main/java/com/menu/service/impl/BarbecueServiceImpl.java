@@ -2,6 +2,7 @@ package com.menu.service.impl;
 
 import com.menu.document.Barbecue;
 import com.menu.exception.ProductAlreadyRegisteredException;
+import com.menu.exception.ProductNotFoundException;
 import com.menu.repository.BarbecueRepository;
 import com.menu.service.BarbecueService;
 import lombok.SneakyThrows;
@@ -29,9 +30,14 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public Optional<Barbecue> findById(Long barbecueId) {
-        return ofNullable(barbecueRepository.findById(barbecueId)
-                .orElseThrow(()-> new RuntimeException()));
+    public Barbecue findById(Long barbecueId) throws ProductNotFoundException {
+      return   verifyIfExists(barbecueId);
+    }
+
+    @Override
+    public Barbecue verifyIfExists(Long barbecueId) throws ProductNotFoundException {
+        return barbecueRepository.findById(barbecueId)
+                .orElseThrow(() -> new ProductNotFoundException(barbecueId));
     }
 
     @Override
@@ -52,9 +58,8 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public Barbecue update(Long barbecueId, Barbecue updateBarbecue) {
-        Barbecue search = findById(barbecueId)
-                .orElseThrow(()-> new RuntimeException());
+    public Barbecue update(Long barbecueId, Barbecue updateBarbecue) throws ProductNotFoundException {
+        Barbecue search = verifyIfExists(barbecueId);
         search.setBarbecueId(updateBarbecue.getBarbecueId());
         search.setItemName(updateBarbecue.getItemName());
         search.setPreparationTime(updateBarbecue.getPreparationTime());
@@ -73,9 +78,9 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public void delete(Long barbecueId) {
-       barbecueRepository.delete(findById(barbecueId)
-               .orElseThrow(()-> new RuntimeException()));
+    public void delete(Long barbecueId) throws ProductNotFoundException {
+       verifyIfExists(barbecueId);
+       barbecueRepository.deleteById(barbecueId);
         System.out.println("Produto deletado !");
     }
 }

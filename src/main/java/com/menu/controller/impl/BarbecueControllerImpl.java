@@ -3,6 +3,7 @@ package com.menu.controller.impl;
 import com.menu.controller.BarbecueRequests;
 import com.menu.document.Barbecue;
 import com.menu.exception.ProductAlreadyRegisteredException;
+import com.menu.exception.ProductNotFoundException;
 import com.menu.service.impl.BarbecueServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,9 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> findBarbecueById(Long barbecueId) {
-        try {
-            return ResponseEntity.ok(barbecueService
-                    .findById(barbecueId));
-        }catch (NotFound notFound){
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> findBarbecueById(Long barbecueId) throws ProductNotFoundException {
+        return ResponseEntity.ok(barbecueService
+                .findById(barbecueId));
     }
 
     @Override
@@ -45,22 +42,15 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> updateBarbecueById(Long barbecueId, Barbecue barbecue) {
-        try {
-            return new ResponseEntity<>(barbecueService.update(barbecueId,barbecue),HttpStatus.OK);
-        }
-        catch (NotFound notFound){
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> updateBarbecueById(Long barbecueId, Barbecue barbecue) throws ProductNotFoundException {
+
+        return ResponseEntity.ok(barbecueService.update(barbecueId, barbecue));
+
     }
 
     @Override
-    public ResponseEntity<?> deleteBarbecueById(Long barbecueId) {
-       try {
-           barbecueService.delete(barbecueId);
-           return ResponseEntity.ok().build();
-       }catch (NotFound notFound){
-           return ResponseEntity.notFound().build();
-       }
+    public ResponseEntity<?> deleteBarbecueById(Long barbecueId) throws ProductNotFoundException {
+        barbecueService.delete(barbecueId);
+        return ResponseEntity.ok().build();
     }
 }
