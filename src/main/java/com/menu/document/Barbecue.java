@@ -1,8 +1,8 @@
 package com.menu.document;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +12,9 @@ import java.io.Serializable;
 
 @Document(collection = "barbecue")
 @Data
+@ToString
+@EqualsAndHashCode
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Barbecue implements Serializable {

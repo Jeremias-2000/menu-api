@@ -1,7 +1,8 @@
 package com.menu.controller.impl;
 
 import com.menu.controller.BarbecueRequests;
-import com.menu.document.Barbecue;
+
+import com.menu.dto.BarbecueDTO;
 import com.menu.exception.ProductAlreadyRegisteredException;
 import com.menu.exception.ProductNotFoundException;
 import com.menu.service.impl.BarbecueServiceImpl;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import java.util.Optional;
 
-import static org.springframework.web.client.HttpClientErrorException.*;
 
 @Slf4j
 @RestController
@@ -23,7 +22,11 @@ import static org.springframework.web.client.HttpClientErrorException.*;
 
 public class BarbecueControllerImpl implements BarbecueRequests {
     @Autowired
-    private BarbecueServiceImpl barbecueService;
+    private final BarbecueServiceImpl barbecueService;
+
+    public BarbecueControllerImpl(BarbecueServiceImpl barbecueService) {
+        this.barbecueService = barbecueService;
+    }
 
     @Override
     public ResponseEntity<?> findAll() {
@@ -37,19 +40,22 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> save(Barbecue barbecue) throws ProductAlreadyRegisteredException {
-        return new ResponseEntity<>(barbecueService.save(barbecue), HttpStatus.CREATED);
+    public ResponseEntity<?> save(BarbecueDTO barbecueDTO)
+            throws ProductAlreadyRegisteredException {
+        return new ResponseEntity<>(barbecueService.save(barbecueDTO), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> updateBarbecueById(Long barbecueId, Barbecue barbecue) throws ProductNotFoundException {
+    public ResponseEntity<?> updateBarbecueById(Long barbecueId, BarbecueDTO barbecueDTO)
+            throws ProductNotFoundException {
 
-        return ResponseEntity.ok(barbecueService.update(barbecueId, barbecue));
+        return ResponseEntity.ok(barbecueService.update(barbecueId, barbecueDTO));
 
     }
 
     @Override
-    public ResponseEntity<?> deleteBarbecueById(Long barbecueId) throws ProductNotFoundException {
+    public ResponseEntity<?> deleteBarbecueById(Long barbecueId)
+            throws ProductNotFoundException {
         barbecueService.delete(barbecueId);
         return ResponseEntity.ok().build();
     }

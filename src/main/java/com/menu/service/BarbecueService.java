@@ -1,18 +1,18 @@
 package com.menu.service;
 
+import com.menu.document.Barbecue;
 import com.menu.exception.ProductAlreadyRegisteredException;
 import com.menu.exception.ProductNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BarbecueService<B> {
-    List<B> findAll();
-    B findById(Long  barbecueId) throws ProductNotFoundException;
-    Optional<B> findByName(String name);
+    List<Barbecue> findAll();
+    Barbecue findById(Long  barbecueId) throws ProductNotFoundException;
+    Barbecue findByName(String name) throws ProductNotFoundException;
     void verifyProductAlreadyRegistered(String itemName) throws ProductAlreadyRegisteredException;
-    B verifyIfExists(Long barbecueId) throws ProductNotFoundException;
-    B save(B newBarbecue) throws ProductAlreadyRegisteredException;
-    B update(Long barbecueId ,B updateBarbecue) throws ProductNotFoundException;
+
+    Barbecue save(B barbecueDTO) throws ProductAlreadyRegisteredException;
+    Barbecue update(Long barbecueId , B barbecueDTO) throws ProductNotFoundException, ProductAlreadyRegisteredException;
     void delete(Long barbecueId) throws ProductNotFoundException;
 }
