@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BarbecueRepository extends MongoRepository<Barbecue,Long> {
+public interface BarbecueRepository extends MongoRepository<Barbecue,String> {
     Optional<Barbecue> findByItemName(String itemName);
 }

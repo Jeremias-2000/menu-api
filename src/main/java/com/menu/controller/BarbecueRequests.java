@@ -15,15 +15,15 @@ public interface BarbecueRequests {
     @GetMapping("/search/findAll")
     ResponseEntity<?> findAll();
     @GetMapping("/search/id/{id}")
-    ResponseEntity<?>findBarbecueById(@PathVariable("id") Long barbecueId) throws ProductNotFoundException;
+    ResponseEntity<?>findBarbecueById(@PathVariable("id") String barbecueId) throws ProductNotFoundException;
     @PostMapping("/save")
     ResponseEntity<?> save(@RequestBody @Valid BarbecueDTO barbecueDTO) throws ProductAlreadyRegisteredException;
 
     @PutMapping("/update/id/{id}")
-    ResponseEntity<?> updateBarbecueById(@PathVariable("id") Long barbecueId
+    ResponseEntity<?> updateBarbecueById(@PathVariable("id") String barbecueId
             ,@RequestBody @Valid BarbecueDTO barbecue) throws ProductNotFoundException;
     @DeleteMapping("/delete/id/{id}")
-    ResponseEntity<?> deleteBarbecueById(@PathVariable("id") Long barbecueId) throws ProductNotFoundException;;
+    ResponseEntity<?> deleteBarbecueById(@PathVariable("id") String barbecueId) throws ProductNotFoundException;;
 
 }
 

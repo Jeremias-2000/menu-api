@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BarbecueDTO {
-    private Long id;
+    private String id;
     private String itemName;
 
     private String preparationTime;
