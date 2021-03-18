@@ -1,25 +1,31 @@
 package com.menu.service.impl;
 
 import com.menu.document.Barbecue;
+
+import com.menu.dto.BarbecueDTO;
+import com.menu.exception.ProductAlreadyRegisteredException;
+import com.menu.exception.ProductNotFoundException;
+
+
 import com.menu.repository.BarbecueRepository;
 import com.menu.service.BarbecueService;
+import lombok.AllArgsConstructor;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Optional.*;
 
 @Service
-public class BarbecueServiceImpl implements BarbecueService<Barbecue>
+@AllArgsConstructor(onConstructor = @ __(@Autowired))
+public class BarbecueServiceImpl implements BarbecueService<BarbecueDTO>
 {
-    @Autowired
-    private BarbecueRepository barbecueRepository;
 
-    public BarbecueServiceImpl(BarbecueRepository barbecueRepository) {
-        this.barbecueRepository = barbecueRepository;
-    }
+    private final BarbecueRepository barbecueRepository;
+
 
     @Override
     public List<Barbecue> findAll() {
@@ -27,43 +33,74 @@ public class BarbecueServiceImpl implements BarbecueService<Barbecue>
     }
 
     @Override
-    public Optional<Barbecue> findById(Long barbecueId) {
-        return ofNullable(barbecueRepository.findById(barbecueId)
-                .orElseThrow(()-> new RuntimeException()));
+    public Barbecue findById(Long barbecueId) throws ProductNotFoundException {
+      return barbecueRepository.findById(barbecueId)
+              .orElseThrow(()->
+                      new ProductNotFoundException(barbecueId) );
+
     }
 
-    @Override
-    public Barbecue findByName(String name) {
-        return null;
-    }
+
 
     @Override
-    public Optional<Barbecue> save(Optional<Barbecue> newBarbecue) {
-        if (newBarbecue.isPresent()){
-            barbecueRepository.save(newBarbecue.get());
-            return newBarbecue;
-        }
-        System.out.println("Produto nao cadastrado !");
-        throw new RuntimeException();
-    }
-
-    @Override
-    public Barbecue update(Long barbecueId, Barbecue updateBarbecue) {
-        Barbecue search = findById(barbecueId)
-                .orElseThrow(()-> new RuntimeException());
-        search.setBarbecueId(updateBarbecue.getBarbecueId());
-        search.setItemName(updateBarbecue.getItemName());
-        search.setPreparationTime(updateBarbecue.getPreparationTime());
-        search.setDescription(updateBarbecue.getDescription());
-        search.setPrice(updateBarbecue.getPrice());
-        System.out.println("Produto atualizado");
+    public Barbecue findByName(String name) throws ProductNotFoundException {
+        Barbecue search = barbecueRepository
+                .findByItemName(name).orElseThrow(()-> new ProductNotFoundException(name));
         return search;
     }
 
+
+
     @Override
-    public void delete(Long barbecueId) {
-       barbecueRepository.delete(findById(barbecueId)
-               .orElseThrow(()-> new RuntimeException()));
+    public Barbecue save(BarbecueDTO barbecueDTO) throws ProductAlreadyRegisteredException {
+        if (barbecueDTO != null){
+            verifyProductAlreadyRegistered(barbecueDTO.getItemName());
+            Barbecue barbecue = convertDTO(barbecueDTO);
+
+            return barbecueRepository.save(barbecue);
+        }
+        return null;
+
+    }
+
+    @Override
+    public Barbecue update(Long barbecueId, BarbecueDTO barbecueDTO) throws ProductNotFoundException {
+
+        if(barbecueDTO != null){
+            Barbecue search = findById(barbecueId);
+            Barbecue barbecue = convertDTO(barbecueDTO);
+            search.setItemName(barbecue.getItemName());
+            search.setPreparationTime(barbecue.getPreparationTime());
+            search.setDescription(barbecueDTO.getDescription());
+            search.setPrice(barbecue.getPrice());
+            return search;
+       }
+       throw new NullPointerException();
+    }
+
+
+
+    @Override
+    public void verifyProductAlreadyRegistered(String itemName) throws ProductAlreadyRegisteredException {
+        Optional<Barbecue> search = barbecueRepository.findByItemName(itemName);
+        if (search.isPresent()){
+            throw new ProductAlreadyRegisteredException(itemName);
+        }
+    }
+
+    @Override
+    public void delete(Long barbecueId) throws ProductNotFoundException {
+       findById(barbecueId);
+       barbecueRepository.deleteById(barbecueId);
         System.out.println("Produto deletado !");
     }
+
+    private Barbecue convertDTO(BarbecueDTO barbecueDTO){
+       return Barbecue.builder()
+               .itemName(barbecueDTO.getItemName())
+               .preparationTime(barbecueDTO.getPreparationTime())
+               .description(barbecueDTO.getDescription())
+               .price(barbecueDTO.getPrice()).build();
+    }
+
 }
