@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface BarbecueService<B> {
     List<Barbecue> findAll();
-    Barbecue findById(Long  barbecueId) throws ProductNotFoundException;
+    Barbecue findById(String  barbecueId) throws ProductNotFoundException;
     Barbecue findByName(String name) throws ProductNotFoundException;
     void verifyProductAlreadyRegistered(String itemName) throws ProductAlreadyRegisteredException;
 
     Barbecue save(B barbecueDTO) throws ProductAlreadyRegisteredException;
-    Barbecue update(Long barbecueId , B barbecueDTO) throws ProductNotFoundException, ProductAlreadyRegisteredException;
-    void delete(Long barbecueId) throws ProductNotFoundException;
+    Barbecue update(String barbecueId , B barbecueDTO) throws ProductNotFoundException, ProductAlreadyRegisteredException;
+    void delete(String barbecueId) throws ProductNotFoundException;
 }

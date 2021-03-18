@@ -33,7 +33,7 @@ public class BarbecueServiceImpl implements BarbecueService<BarbecueDTO>
     }
 
     @Override
-    public Barbecue findById(Long barbecueId) throws ProductNotFoundException {
+    public Barbecue findById(String barbecueId) throws ProductNotFoundException {
       return barbecueRepository.findById(barbecueId)
               .orElseThrow(()->
                       new ProductNotFoundException(barbecueId) );
@@ -64,7 +64,7 @@ public class BarbecueServiceImpl implements BarbecueService<BarbecueDTO>
     }
 
     @Override
-    public Barbecue update(Long barbecueId, BarbecueDTO barbecueDTO) throws ProductNotFoundException {
+    public Barbecue update(String barbecueId, BarbecueDTO barbecueDTO) throws ProductNotFoundException {
 
         if(barbecueDTO != null){
             Barbecue search = findById(barbecueId);
@@ -89,7 +89,7 @@ public class BarbecueServiceImpl implements BarbecueService<BarbecueDTO>
     }
 
     @Override
-    public void delete(Long barbecueId) throws ProductNotFoundException {
+    public void delete(String barbecueId) throws ProductNotFoundException {
        findById(barbecueId);
        barbecueRepository.deleteById(barbecueId);
         System.out.println("Produto deletado !");
@@ -102,5 +102,6 @@ public class BarbecueServiceImpl implements BarbecueService<BarbecueDTO>
                .description(barbecueDTO.getDescription())
                .price(barbecueDTO.getPrice()).build();
     }
+
 
 }

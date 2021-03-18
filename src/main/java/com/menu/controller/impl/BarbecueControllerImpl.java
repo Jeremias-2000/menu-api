@@ -34,7 +34,7 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> findBarbecueById(Long barbecueId) throws ProductNotFoundException {
+    public ResponseEntity<?> findBarbecueById(String barbecueId) throws ProductNotFoundException {
         return ResponseEntity.ok(barbecueService
                 .findById(barbecueId));
     }
@@ -46,7 +46,7 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> updateBarbecueById(Long barbecueId, BarbecueDTO barbecueDTO)
+    public ResponseEntity<?> updateBarbecueById(String barbecueId, BarbecueDTO barbecueDTO)
             throws ProductNotFoundException {
 
         return ResponseEntity.ok(barbecueService.update(barbecueId, barbecueDTO));
@@ -54,7 +54,7 @@ public class BarbecueControllerImpl implements BarbecueRequests {
     }
 
     @Override
-    public ResponseEntity<?> deleteBarbecueById(Long barbecueId)
+    public ResponseEntity<?> deleteBarbecueById(String barbecueId)
             throws ProductNotFoundException {
         barbecueService.delete(barbecueId);
         return ResponseEntity.ok().build();
