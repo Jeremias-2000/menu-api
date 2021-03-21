@@ -1,5 +1,6 @@
 package com.menu.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.menu.enums.FoodType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class FoodDTO {
     private String id;
     @NotNull
@@ -23,17 +25,17 @@ public class FoodDTO {
 
     @NotNull
     @NotEmpty
-    @Size(min = 10,max = 40)
+    @Size(min = 5,max = 40)
     private String preparationTime;
 
     @NotNull
     @NotEmpty
-    @Size(min = 15,max = 250)
+    @Size(min = 5,max = 250)
     private String description;
     @NotNull
-    @NotEmpty
+
     private double price;
-    @NotNull
-    @NotEmpty
+      @NotNull
+
     private FoodType foodType;
 }
