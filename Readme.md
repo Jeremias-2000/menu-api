@@ -6,7 +6,7 @@
 ## Requerimentos:
 
 - Spring boot (versão 2.4.2)
-- Mongodb
+- conta no MongoDB Atlas
 
 
 
