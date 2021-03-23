@@ -42,6 +42,7 @@ public class FoodServiceImpl implements FoodService<FoodDTO>{
         if (foodDTO != null){
             verifyFoodAlreadyRegistered(foodDTO.getItemName());
             Food food = convertDocumentToDTO(foodDTO);
+
             return repository.save(food);
         }
         return  null;
@@ -86,6 +87,7 @@ public class FoodServiceImpl implements FoodService<FoodDTO>{
                 .preparationTime(foodDTO.getPreparationTime())
                 .description(foodDTO.getDescription())
                 .price(foodDTO.getPrice())
-                .foodType(foodDTO.getFoodType()).build();
+                .foodType(foodDTO.getFoodType())
+                .build();
     }
 }
