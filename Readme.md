@@ -1,6 +1,6 @@
 # menu api
 
- cadastrando pratos culinarios 
+ cadastrando pratos culinários 
    em categorias.
 
 ## Requerimentos:
@@ -15,6 +15,6 @@
     "preparationTime": "30 minutos",
     "description": "carne ,temperos,farofa",
     "price": 75.0,
-    "foodType": "BARBECUE"
+    "foodType": "barbecue"
 
 

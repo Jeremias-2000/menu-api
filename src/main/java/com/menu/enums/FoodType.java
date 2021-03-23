@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor
-@JsonFormat(shape = JsonFormat.Shape.STRING)
+
 public enum FoodType {
 
     BARBECUE("barbecue"),
@@ -34,7 +34,12 @@ public enum FoodType {
     private final String description;
 
 
-
+    public static FoodType of(String value){
+        return Stream.of(FoodType.values())
+                .filter(it -> it.getDescription().equals(value))
+                .findFirst()
+                .orElseThrow();
+    }
 
 
 
