@@ -17,6 +17,10 @@ public class FoodServiceImpl implements FoodService<FoodDTO>{
    @Autowired
    private FoodRepository repository;
 
+    public FoodServiceImpl(FoodRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public List<Food> findAll() {
         return repository.findAll();
