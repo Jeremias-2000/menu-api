@@ -26,6 +26,7 @@
     "preparationTime": "30 minutos",
     "description": "carne ,temperos,farofa",
     "price": 75.0,
+    "quantity": 1,
     "foodType": "barbecue"
 
 

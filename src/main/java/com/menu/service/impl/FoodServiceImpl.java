@@ -61,6 +61,7 @@ public class FoodServiceImpl implements FoodService<FoodDTO>{
             search.setPreparationTime(updateFood.getPreparationTime());
             search.setDescription(updateFood.getDescription());
             search.setPrice(updateFood.getPrice());
+            search.setQuantity(updateFood.getQuantity());
             search.setFoodType(updateFood.getFoodType());
 
             return search;
@@ -91,6 +92,7 @@ public class FoodServiceImpl implements FoodService<FoodDTO>{
                 .preparationTime(foodDTO.getPreparationTime())
                 .description(foodDTO.getDescription())
                 .price(foodDTO.getPrice())
+                .quantity(foodDTO.getQuantity())
                 .foodType(foodDTO.getFoodType())
                 .build();
     }

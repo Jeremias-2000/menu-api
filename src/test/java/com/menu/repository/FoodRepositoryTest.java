@@ -35,7 +35,7 @@ class FoodRepositoryTest {
     @Test
     void findByItemName() {
         Food food =new Food("6059411bb0d2ce008af7acf4","maracuja","5 minutos",
-                "suco de maracuja com limao para enfeite",5.0,FoodType.JUICE);
+                "suco de maracuja com limao para enfeite",5.0,1,FoodType.JUICE);
         repository.save(food);
         Optional<Food> search = repository.findByItemName("maracuja");
         assertNotNull(search);
