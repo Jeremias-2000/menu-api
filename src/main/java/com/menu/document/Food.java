@@ -8,9 +8,9 @@ import com.menu.enums.FoodType;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.validation.constraints.NotEmpty;
+
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,7 +39,7 @@ public class Food {
     @NotNull(message = "preco nao pode ser nulo")
     private double price;
 
-
+    private int quantity;
    // @NotNull(message = "tipo de comida nao pode ser nulo")
 
 

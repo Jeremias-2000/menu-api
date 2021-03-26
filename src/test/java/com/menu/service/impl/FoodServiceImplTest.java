@@ -43,6 +43,7 @@ class FoodServiceImplTest {
     private static  String PREPARATIONTIME = "5 minutos";
     private static  String DESCRIPTION = "suco de maracuja com limao para enfeite";
     private static  double PRICE = 10.0;
+    private static int QUANTITY = 1;
     private static FoodType FOODTYPE = FoodType.JUICE;
 
 
@@ -58,7 +59,7 @@ class FoodServiceImplTest {
         service = new FoodServiceImpl(repository);
         foodDTO = new FoodDTO(ID,ITEMNAME,
                 PREPARATIONTIME,DESCRIPTION,
-                PRICE,FOODTYPE);
+                PRICE,QUANTITY,FOODTYPE);
         food = service.convertDocumentToDTO(foodDTO);
     }
 
@@ -93,6 +94,7 @@ class FoodServiceImplTest {
         assertThat(test.getPreparationTime()).isEqualTo(PREPARATIONTIME);
         assertThat(test.getDescription()).isEqualTo(DESCRIPTION);
         assertThat(test.getPrice()).isEqualTo(PRICE);
+        assertThat(test.getQuantity()).isEqualTo(QUANTITY);
         assertThat(test.getFoodType()).isEqualTo(FOODTYPE);
 
     }
@@ -114,6 +116,7 @@ class FoodServiceImplTest {
         assertThat(test.getPreparationTime()).isEqualTo(PREPARATIONTIME);
         assertThat(test.getDescription()).isEqualTo(DESCRIPTION);
         assertThat(test.getPrice()).isEqualTo(PRICE);
+        assertThat(test.getQuantity()).isEqualTo(QUANTITY);
         assertThat(test.getFoodType()).isEqualTo(FOODTYPE);
 
     }
@@ -132,7 +135,7 @@ class FoodServiceImplTest {
 
         //given
         FoodDTO update = new FoodDTO(ID,"maracuja","5 minutos",
-                "suco de maracuja com limao para enfeite",5.0,FoodType.JUICE);
+                "suco de maracuja com limao para enfeite",5.0,1,FoodType.JUICE);
 
         food = service.update(ID,update);
         //then

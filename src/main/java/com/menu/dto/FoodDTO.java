@@ -36,6 +36,7 @@ public class FoodDTO {
 
     private double price;
       @NotNull
-
+      private int quantity;
+    @NotNull
     private FoodType foodType;
 }
