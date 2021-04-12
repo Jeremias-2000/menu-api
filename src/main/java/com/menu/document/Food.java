@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode
 
 public class Food {
+
     @Id
     private String id;
 
